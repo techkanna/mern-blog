@@ -25,10 +25,10 @@ function ArticleListScreen() {
             <Message variant='danger'>{error}</Message>
           ) : (
               <>
-                <h1>Blog Articles</h1>
+                <h1 className="mt-4">Blog Articles</h1>
                 <Button href="/articles/new" variant="success" className="mt-2">New Article</Button>
                 {articleList.map((article) => {
-                  return <ArticalCard key={article._id} article={articles} />
+                  return <ArticalCard key={article._id} article={article} />
                 })}
               </>
             )
