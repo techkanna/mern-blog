@@ -12,7 +12,11 @@ import {
   DELETE_ARTICLE_REQUEST,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_FAIL,
-  DELETE_ARTICLE_RESET
+  DELETE_ARTICLE_RESET,
+  ARTICLE_UPDATE_REQUEST,
+  ARTICLE_UPDATE_SUCCESS,
+  ARTICLE_UPDATE_FAIL,
+  ARTICLE_UPDATE_RESET,
 } from '../constants/articleConstands'
 
 export const articleListReducer = (state = { loading: true, articleList: [] }, action) => {
@@ -28,16 +32,16 @@ export const articleListReducer = (state = { loading: true, articleList: [] }, a
   }
 }
 
-export const articleCreateReducer = (state = {}, action) => {
+export const articleCreateReducer = (state = { artical: {} }, action) => {
   switch (action.type) {
     case ARTICLE_CREATE_REQUEST:
-      return { loading: true }
+      return { ...state, loading: true }
     case ARTICLE_CREATE_SUCCESS:
       return { loading: false, artical: action.payload }
     case ARTICLE_CREATE_FAIL:
       return { loading: false, error: action.payload }
     case ARTICLE_CREATE_RESET:
-      return {}
+      return { artical: {} }
     default:
       return state
   }
@@ -66,6 +70,21 @@ export const deleteArticleReducer = (state = { loading: true, success: false }, 
       return { loading: false, error: action.payload }
     case DELETE_ARTICLE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const articleUpdateReducer = (state = { loading: true, articalUpdated: {} }, action) => {
+  switch (action.type) {
+    case ARTICLE_UPDATE_REQUEST:
+      return { ...state, loading: true }
+    case ARTICLE_UPDATE_SUCCESS:
+      return { loading: false, articalUpdated: action.payload }
+    case ARTICLE_UPDATE_FAIL:
+      return { loading: false, error: action.payload }
+    case ARTICLE_UPDATE_RESET:
+      return { articalUpdated: {} }
     default:
       return state
   }

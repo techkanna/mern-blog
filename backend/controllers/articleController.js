@@ -60,3 +60,22 @@ export const removeArticle = asyncHandler(async (req, res) => {
     throw new Error('Article not found')
   }
 })
+
+// @desc    Update article
+// @route   UPDATE /api/articles/:id
+// @access  Public
+export const updateArticle = asyncHandler(async (req, res) => {
+
+  const article = await Article.findById(req.params.id)
+
+  if (article) {
+    article.title = req.body.title
+    article.description = req.body.description
+    article.markdown = req.body.markdown
+    const updatedArtical = await article.save()
+    res.json(updatedArtical)
+  } else {
+    res.status(404)
+    throw new Error('Article not found')
+  }
+})

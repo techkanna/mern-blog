@@ -12,6 +12,9 @@ import {
   DELETE_ARTICLE_REQUEST,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_FAIL,
+  ARTICLE_UPDATE_REQUEST,
+  ARTICLE_UPDATE_SUCCESS,
+  ARTICLE_UPDATE_FAIL,
 } from '../constants/articleConstands'
 
 export const listArticles = () => async (dispatch) => {
@@ -119,6 +122,32 @@ export const deleteArticle = (id) => async (dispatch) => {
 
     dispatch({
       type: DELETE_ARTICLE_FAIL,
+      payload: message
+    })
+  }
+}
+
+export const articleUpdateAction = (article) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ARTICLE_UPDATE_REQUEST
+    })
+
+    const { data } = await axios.put(`/api/articles/${article._id}`, article)
+
+    dispatch({
+      type: ARTICLE_UPDATE_SUCCESS,
+      payload: data
+    })
+  } catch (error) {
+    console.error(error);
+    let message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+
+    dispatch({
+      type: ARTICLE_UPDATE_FAIL,
       payload: message
     })
   }

@@ -5,8 +5,10 @@ import { getArticle } from '../actions/acticleActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
+
 function ArticalScreen({ match }) {
   const id = match.params.id
+
   const article = useSelector(state => state.article)
   const { loading, articleDetails, error } = article
 
@@ -16,9 +18,11 @@ function ArticalScreen({ match }) {
     if (!articleDetails || articleDetails.slug !== id) {
       dispatch(getArticle(id))
     }
-
+  }, [articleDetails, id, dispatch])
+  useEffect(() => {
+    dispatch(getArticle(id))
     // eslint-disable-next-line
-  }, [id])
+  }, [])
   return (
     <>
       {
@@ -33,7 +37,7 @@ function ArticalScreen({ match }) {
                   {new Date(articleDetails.createdAt).toLocaleString().slice(0, -3)}
                 </div>
                 <Link to="/" className="btn btn-primary mr-3">All Articles</Link>
-                <Link to={`/articles/edit/${articleDetails._id}`} className="btn btn-info">Edit</Link>
+                <Link to={`/article/edit/${articleDetails.slug}`} className="btn btn-info">Edit</Link>
 
                 <div className="overflow-auto mt-5 shadow-sm p-3 bg-white rounded" dangerouslySetInnerHTML={{ __html: articleDetails.sanitizedHtml }}>
                 </div>

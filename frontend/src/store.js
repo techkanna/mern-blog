@@ -5,7 +5,8 @@ import {
   articleListReducer,
   articleCreateReducer,
   getArticleReducer,
-  deleteArticleReducer
+  deleteArticleReducer,
+  articleUpdateReducer
 } from './reducers/articleReducers'
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   articleCreate: articleCreateReducer,
   article: getArticleReducer,
   articleDelete: deleteArticleReducer,
+  articleUpdate: articleUpdateReducer,
 })
 
 

@@ -14,7 +14,7 @@ function ArticalCard({ article, deleteArticleHandler }) {
           {article.description}
         </Card.Text>
         <Link to={`articles/${article.slug}`} className="btn btn-dark my-2 mr-2">Read More</Link>
-        <Link to={`article/${article._id}`} className="btn btn-info m-2">Edit</Link>
+        <Link to={`article/edit/${article.slug}`} className="btn btn-info m-2">Edit</Link>
         <Button onClick={() => deleteArticleHandler(article._id)} className="m-2" variant="danger">Delete</Button>
       </Card.Body>
     </Card>
