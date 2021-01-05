@@ -6,7 +6,7 @@ import asyncHandler from 'express-async-handler'
 // @access  Public
 export const getArticles = asyncHandler(async (req, res) => {
 
-  const articles = await Article.find()
+  const articles = await Article.find().sort({ createdAt: 'desc' })
 
   res.json(articles)
 })
@@ -27,5 +27,36 @@ export const createArticle = asyncHandler(async (req, res) => {
     res.json(createdArtical)
   } catch (error) {
     throw new Error(error)
+  }
+})
+
+// @desc    Get article
+// @route   GET /api/articles/:id
+// @access  Public
+export const getArticle = asyncHandler(async (req, res) => {
+
+  const article = await Article.where('slug', req.params.id)
+
+  if (article) {
+    res.json(article)
+  } else {
+    res.status(404)
+    throw new Error('Article not found')
+  }
+})
+
+// @desc    Delete article
+// @route   DELETE /api/articles/:id
+// @access  Public
+export const removeArticle = asyncHandler(async (req, res) => {
+
+  const article = await Article.findById(req.params.id)
+
+  if (article) {
+    await article.remove()
+    res.json({ message: 'Article removed' })
+  } else {
+    res.status(404)
+    throw new Error('Article not found')
   }
 })

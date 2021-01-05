@@ -1,3 +1,8 @@
 .btn {
   border-radius: 0.25rem;
 }
+
+.cancel-btn {
+  background-color: var(--gray);
+  color: #fff;
+}
